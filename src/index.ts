@@ -32,15 +32,15 @@ function requiredEnv(name: string): string {
 
 const isSecureEnv = ['production', 'prod', 'staging'].includes(process.env.NODE_ENV ?? '');
 
-  const httpsOptions = isSecureEnv
-    ? {
-        key: fs.readFileSync(requiredEnv('KEY_PATH')),
-        cert: fs.readFileSync(requiredEnv('CERT_PATH')),
-        ca: fs.readFileSync(requiredEnv('CA_PATH')),
-        requestCert: true,
-        rejectUnauthorized: true,
-      }
-    : undefined;
+const httpsOptions = isSecureEnv
+  ? {
+      key: fs.readFileSync(requiredEnv('KEY_PATH')),
+      cert: fs.readFileSync(requiredEnv('CERT_PATH')),
+      ca: fs.readFileSync(requiredEnv('CA_PATH')),
+      requestCert: true,
+      rejectUnauthorized: true,
+    }
+  : undefined;
 
 const mainModuleFunction = async (AppModule: any, grpcOptions: any | null, rabbitMQConfig: any | null): Promise<void> => {
   async function bootstrap() {
